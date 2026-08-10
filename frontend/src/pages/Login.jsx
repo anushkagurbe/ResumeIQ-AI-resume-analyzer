@@ -1,0 +1,121 @@
+import { FileSearchCorner } from "lucide-react";
+import { useContext, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { AUTH_API } from "../api/authApi";
+import AuthContext from "../context/AuthContext";
+import { toast } from "react-toastify";
+
+let Login =()=>{
+
+    let { login } = useContext(AuthContext);
+    let [formData, setFormData] = useState({
+        email: "",
+        password: ""
+    });
+    let [isSubmitting, setIsSubmitting] = useState(false);
+    let [errors, setErrors] = useState({});
+    let navigate = useNavigate();
+
+    let handleChange =(event)=>{
+        let { name, value } = event.target;
+        setFormData((formData)=>({
+            ...formData,
+            [name]: value
+        }));
+        setErrors((errors)=>({
+            ...errors,
+            [name]: ""
+        }))
+    }
+
+    let handleSubmit =async(event)=>{
+        event.preventDefault();
+        setIsSubmitting(true);
+        setErrors({});
+        try
+        {
+            let response = await AUTH_API.post("/login", formData);
+            login(response.data.user, response.data.accessToken);
+            console.log(response.data);
+            toast.success(response.data.message);
+            setFormData({
+                email: "",
+                password: ""
+            });
+            navigate("/dashboard");
+        }
+        catch(error)
+        {
+            if(error.response?.data?.errors)
+            {
+                setErrors(error.response.data.errors);
+                return ;
+            }
+            toast.error(error.response?.data?.message);
+        }
+        finally
+        {
+            setIsSubmitting(false);
+        }
+    }
+
+    return (
+        <div className="min-h-[calc(100vh-64px)] bg-[#11121d] flex items-center justify-center px-5 py-12">
+            <div className="w-full max-w-md">
+                <div className="flex flex-col items-center justify-center">
+                    <Link to="/" className="flex items-center mb-4">
+                        <span className="w-8 h-8 bg-zinc-900 border border-teal-700 group-hover:border-teal-400/60 transition-colors rounded-lg flex items-center justify-center">
+                            <FileSearchCorner size={19} color="#3ee0c4"/>
+                        </span>
+                    </Link>
+                    <h1 className="text-[#faf6ee] font-serif font-medium text-3xl">Welcome back</h1>
+                    <p className="text-[#8d8a8b] font-medium text-center mt-1">Log in to see your resume analyses.</p>
+
+                    <div className="bg-[#fbf6ef] rounded-3xl p-6 sm:p-8 mt-4 w-full">
+                        <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
+                            <div className="flex flex-col gap-2">
+                                <label className="font-medium text-sm block text-[#4f4d57]" htmlFor="email">Email</label>
+                                <input 
+                                    className="w-full border border-[#e3e2df] rounded-2xl px-4 py-3 text-sm focus:border-teal-700 focus:outline-none" 
+                                    type="text" 
+                                    id="email" 
+                                    placeholder="your@gmail.com" 
+                                    name="email"
+                                    value={formData.email}
+                                    onChange={handleChange}
+                                />
+                                <span className="text-sm text-[#4f4d57]">{errors && errors.email}</span>
+                            </div>
+
+                            <div className="flex flex-col gap-2">
+                                <label className="font-medium text-sm block text-[#4f4d57]" htmlFor="password">Password</label>
+                                <input 
+                                    className="w-full border border-[#e3e2df] rounded-2xl px-4 py-3 text-sm focus:border-teal-700 focus:outline-none" 
+                                    type="password" 
+                                    id="password" 
+                                    placeholder="********" 
+                                    name="password"
+                                    value={formData.password}
+                                    onChange={handleChange}
+                                />
+                                <span className="text-sm text-[#4f4d57]">{errors && errors.password}</span>
+                            </div>
+
+                            <button disabled={isSubmitting} type="submit" className="bg-[#11121d] font-semibold rounded-full px-4 py-3 text-center text-[#faf6ee] cursor-pointer hover:bg-[#11121d]/90">{isSubmitting ? "Logging In" : "LogIn"}</button>
+
+                        </form>
+
+                        <p className="text-sm text-[#4f4d57] text-center mt-6">
+                            No account? {"   "}
+                            <Link to="/signup" className="text-teal-700 font-semibold">
+                                Create one
+                            </Link>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    )
+}
+
+export default Login;

@@ -1,0 +1,31 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "resume analyzer backend",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon server.js"
+  },
+  "author": "anushkagurbe",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "cohere-ai": "^8.0.0",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "jsonwebtoken": "^9.0.3",
+    "mammoth": "^1.12.0",
+    "mongoose": "^9.8.0",
+    "multer": "^2.2.0",
+    "pdf-parse": "^2.4.5",
+    "puppeteer": "^25.5.0",
+    "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  }
+}
