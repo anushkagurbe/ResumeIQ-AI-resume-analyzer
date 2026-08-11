@@ -242,7 +242,7 @@ export let downloadAnalyis =asyncWrapper(async (req, res)=>{
     let page = await browser.newPage();
 
     await page.setContent(html, {
-        waitUntil: "networkidle0"
+        waitUntil: "domcontentloaded"
     });
 
     let pdf = await page.pdf({
