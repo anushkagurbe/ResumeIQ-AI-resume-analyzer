@@ -57,7 +57,7 @@ let History =()=>{
                 </div>
                 <div className="flex flex-col gap-4">
                     {
-                        loading ? <h1>Loading...</h1> :
+                        loading ? <h1 className="text-[#faf6ee]">Loading...</h1> :
                             (
                                 history.length == 0 ? 
                                     (

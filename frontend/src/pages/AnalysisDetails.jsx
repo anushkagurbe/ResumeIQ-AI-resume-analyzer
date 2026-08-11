@@ -73,14 +73,14 @@ let AnalysisDetails =()=>{
         <div className="bg-[#11121d]">
             <div className="max-w-4xl mx-auto px-5 sm:px-8 py-10 sm:py-14">
                 {
-                    loading ? <h1 className="h-screen">Loading...</h1> :
+                    loading ? <h1 className="h-screen text-[#faf6ee]">Loading...</h1> :
                     <div className="flex flex-col gap-5">
 
                         <Link to="/history" className="inline-flex items-center text-[#8d8a8b] gap-2 text-sm font-medium hover:text-[#faf6ee] mb-4">
                             <ArrowLeft size={15} /> Back to history
                         </Link>
 
-                        <div className="flex items-center justify-between">
+                        <div className="flex items-center justify-between gap-3 sm:flex-row flex-col">
                             <h1 className="font-serif text-2xl sm:text-3xl mb-2 truncate text-[#faf6ee]">{analysis.fileName}</h1>
                             <button onClick={downloadAnalysis} className="text-[#faf6ee] border border-[#8d8a8b] hover:border-[#3ee0c4] rounded-xl px-4 py-2 flex items-center justify-between gap-3 cursor-pointer" disabled={isDownloading}>
                                 {
