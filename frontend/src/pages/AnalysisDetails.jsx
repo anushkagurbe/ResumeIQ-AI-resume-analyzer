@@ -81,7 +81,7 @@ let AnalysisDetails =()=>{
                         </Link>
 
                         <div className="flex items-center justify-between gap-3 sm:flex-row flex-col">
-                            <h1 className="font-serif text-2xl sm:text-3xl mb-2 truncate text-[#faf6ee]">{analysis.fileName}</h1>
+                            <h1 className="font-serif text-xl sm:text-3xl mb-2 truncate text-[#faf6ee]">{analysis.fileName}</h1>
                             <button onClick={downloadAnalysis} className="text-[#faf6ee] border border-[#8d8a8b] hover:border-[#3ee0c4] rounded-xl px-4 py-2 flex items-center justify-between gap-3 cursor-pointer" disabled={isDownloading}>
                                 {
                                     isDownloading ? `Downloading...` : <>Download report <DownloadIcon/></>
