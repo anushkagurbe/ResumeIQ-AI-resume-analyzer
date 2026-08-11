@@ -1,4 +1,4 @@
-import { asyncWrapper } from "../middlewares/AsyncWrapper.js";
+import { asyncWrapper } from "../middlewares/asyncWrapper.js";
 import resumeModel from "../models/resume.model.js";
 import AppError from "../utils/AppError.js";
 import { analyzeResume } from "../utils/cohereService.js";
